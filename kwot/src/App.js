@@ -2,17 +2,20 @@ import React, {Component} from 'react';
 import './App.css';
 import LoginForm from './AuthGateway/LoginForm/LoginForm';
 import RegistrationForm from './AuthGateway/RegistrationForm/RegistrationForm';
+import {Switch, Route, Link } from 'react-router-dom';
+import UserContainer from './UserContainer/UserContainer';
+import AuthGateway from './AuthGateway/AuthGateway';
 
 class App extends Component {
-  render(){
-    return (
-      <div className="App">
-        Welcome to KWÖT!
-        <LoginForm></LoginForm>
-        <RegistrationForm handleRegister={this.handleRegister}></RegistrationForm>
-      </div>
-    );
+  constructor(){
+    super();
+    this.state = {
+      loggedIn: false,
+      username: null,
+      email: null
+    }
   }
+  
 
   handleRegister = async (formData) => {
     console.log(formData);
@@ -25,14 +28,32 @@ class App extends Component {
       }
     })
     const parsedResponse = await response.json();
-    if(parsedResponse.status === 200){
+    console.log(parsedResponse)
+    if(parsedResponse){
       this.setState({
           loggedIn: true,
-          username: parsedResponse.data.username,
-          email: parsedResponse.data.email
+          username: parsedResponse.username,
+          email: parsedResponse.email
 
       })
+      console.log(this.state);
     }
+  }
+  render(){
+    return (
+      <div className="App">
+        Welcome to KWÖT!
+        {this.state.loggedIn ? 
+        <Switch>
+          <Route exact path="/" render={(props) => 
+            <UserContainer username={this.state.username} loggedIn={this.state.loggedIn} email={this.state.email}/>} />
+        </Switch>
+        :
+        <AuthGateway handleRegister={this.handleRegister}  handleLogin={this.handleLogin} handleGeo={this.handleGeo}/>}
+        {/* <LoginForm></LoginForm>
+        <RegistrationForm handleRegister={this.handleRegister}></RegistrationForm> */}
+      </div>
+    );
   }
 
 
