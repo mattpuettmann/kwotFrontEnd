@@ -32,16 +32,42 @@ class App extends Component {
     console.log(parsedResponse)
     console.log(response.status)
     if(response.status === 201){
-      console.log(this.state);
       this.setState({
           loggedIn: true,
           username: parsedResponse.username,
           email: parsedResponse.email
-
-      })
-      
+      })    
     }
   }
+
+  handleLogin = async (formData) => {
+    console.log(formData);
+    try{
+      const loginResponse = await fetch("http://localhost:8000/users/login", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })  
+      const parsedLoginResponse = await loginResponse.json();
+      console.log(loginResponse)
+      console.log(parsedLoginResponse)
+      if(loginResponse.status === 201){
+        this.setState({
+          loggedIn: true,
+          username: formData.username,
+          password: formData.password
+        })
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
+
   render(){
     return (
       <div className="App">

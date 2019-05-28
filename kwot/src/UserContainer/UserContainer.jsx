@@ -9,7 +9,7 @@ class UserContainer extends Component {
     }
     render(){
         return <div>
-            <h1>Logged in! User Container!</h1>
+            <h1>Logged in to {this.props.username}'s User Container!</h1>
         </div>
     }
 }
