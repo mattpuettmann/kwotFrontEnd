@@ -27,16 +27,19 @@ class App extends Component {
           "Content-Type": "application/json"
       }
     })
+    console.log(response.statusText)
     const parsedResponse = await response.json();
     console.log(parsedResponse)
-    if(parsedResponse){
+    console.log(response.status)
+    if(response.status === 201){
+      console.log(this.state);
       this.setState({
           loggedIn: true,
           username: parsedResponse.username,
           email: parsedResponse.email
 
       })
-      console.log(this.state);
+      
     }
   }
   render(){
