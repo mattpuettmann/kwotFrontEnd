@@ -6,12 +6,19 @@ class LoginForm extends Component {
         super();
         this.state = {
             username: "",
+            email: "",
             password: ""
         }
     }
     render(){
         return <div>
-            <h3>Login Form!</h3>
+            <h4>Login:</h4>
+            <form>
+                Username: <input type="text" name="username"/><br/>
+                Email: <input type="text" name="email"/><br/>
+                Password: <input type="password" name="password"/><br/>
+                <input type="submit"/>
+            </form>
         </div>
     }
 }
