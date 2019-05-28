@@ -7,13 +7,15 @@ class RegistrationForm extends Component {
         this.state = {
             username: "",
             email: "",
-            password: ""
+            password: "",
+            verify_password: ""
         }
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
         console.log(this.state)
+        this.props.handleRegister(this.state)
     }
 
 
@@ -23,7 +25,6 @@ class RegistrationForm extends Component {
         this.setState({
             [e.target.name] : e.target.value
         })
-        console.log(this.state)
     }
 
     render(){
@@ -33,6 +34,7 @@ class RegistrationForm extends Component {
                 Username: <input onChange={this.handleChange} type="text" name="username"/><br/>
                 Email: <input onChange={this.handleChange} type="text" name="email"/><br/>
                 Password: <input onChange={this.handleChange} type="password" name="password"/><br/>
+                Verify Password: <input onChange={this.handleChange} type="password" name="verify_password"/><br/>
                 <input type="submit"/>
             </form>
         </div>

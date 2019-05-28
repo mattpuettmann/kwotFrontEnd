@@ -9,7 +9,7 @@ class App extends Component {
       <div className="App">
         Welcome to KWÖT!
         <LoginForm></LoginForm>
-        <RegistrationForm></RegistrationForm>
+        <RegistrationForm handleRegister={this.handleRegister}></RegistrationForm>
       </div>
     );
   }
