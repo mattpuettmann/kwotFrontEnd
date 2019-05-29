@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import LoginForm from './AuthGateway/LoginForm/LoginForm';
-import RegistrationForm from './AuthGateway/RegistrationForm/RegistrationForm';
-import {Switch, Route, Link } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import UserContainer from './UserContainer/UserContainer';
 import AuthGateway from './AuthGateway/AuthGateway';
 
@@ -66,6 +64,13 @@ class App extends Component {
     }
   }
 
+  handleLogout =  () => {
+    console.log('logout button clicked!')
+    this.setState({
+      loggedIn: false
+    })
+  }
+
 
 
   render(){
@@ -75,12 +80,10 @@ class App extends Component {
         {this.state.loggedIn ? 
         <Switch>
           <Route exact path="/" render={(props) => 
-            <UserContainer username={this.state.username} loggedIn={this.state.loggedIn} email={this.state.email}/>} />
+            <UserContainer username={this.state.username} loggedIn={this.state.loggedIn} email={this.state.email} handleLogout={this.handleLogout}/>} />
         </Switch>
         :
         <AuthGateway handleRegister={this.handleRegister}  handleLogin={this.handleLogin} handleGeo={this.handleGeo}/>}
-        {/* <LoginForm></LoginForm>
-        <RegistrationForm handleRegister={this.handleRegister}></RegistrationForm> */}
       </div>
     );
   }

@@ -10,6 +10,9 @@ class UserContainer extends Component {
     render(){
         return <div>
             <h1>Logged in to {this.props.username}'s User Container!</h1>
+            <button>Edit</button>
+            <button>Delete</button>
+            <button onClick={this.props.handleLogout}>Logout</button>
         </div>
     }
 }
