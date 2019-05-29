@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import EditContainer from '../AuthGateway/EditContainer/EditContainer'
+import QuoteContainer from '../QuoteContainer/QuoteContainer';
+import NewContainer from '../NewContainer/NewContainer';
 
 class UserContainer extends Component {
     constructor(){
@@ -8,14 +9,26 @@ class UserContainer extends Component {
             showModal: false
         }
     }
-
+    showCreate = (e) => {
+        e.preventDefault();
+        this.setState({
+            showModal: true
+        })
+    }
 
     render(){
         return <div>
             <h1>Logged in to {this.props.username}'s User Container!</h1>
-            <button>Add New Quote</button>
+            <button onClick={this.showCreate}>Add New Quote</button>
+            {this.state.showModal ?
+            <NewContainer/>
+            :
+            null
+            }
             <button onClick={this.props.handleLogout}>Logout</button>
             <h3>Here are all of {this.props.username}'s quotes:</h3>
+            <QuoteContainer/>
+
         </div>
     }
 }
