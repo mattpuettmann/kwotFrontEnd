@@ -5,7 +5,7 @@ class NewContainer extends Component {
         super();
         this.state = {
             body: "",
-            attributed_to: "",
+            attributedTo: "",
             medium: ""
         }
     }
@@ -19,9 +19,26 @@ class NewContainer extends Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         console.log(this.state)
+        try {
+            const newQuote = await fetch('http://localhost:8000/api/v1/quotes', {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+        const parsedResponse = await newQuote.json();
+        console.log(parsedResponse)
+        // showCreate();
+
+        }catch(err){
+            console.log(err)
+        }
+
     }
 
     render(){

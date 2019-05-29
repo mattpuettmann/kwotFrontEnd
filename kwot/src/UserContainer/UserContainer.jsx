@@ -21,7 +21,7 @@ class UserContainer extends Component {
             <h1>Logged in to {this.props.username}'s User Container!</h1>
             <button onClick={this.showCreate}>Add New Quote</button>
             {this.state.showModal ?
-            <NewContainer/>
+            <NewContainer showCreate={this.showCreate}/>
             :
             null
             }
