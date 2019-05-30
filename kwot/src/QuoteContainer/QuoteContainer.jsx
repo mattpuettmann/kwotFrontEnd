@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
+import EditContainer from '../AuthGateway/EditContainer/EditContainer';
 
 class QuoteContainer extends Component {
     constructor(){
         super();
         this.state = {
-            quotes: []
+            show_edit: false,
+            quotes: [],
+            quote_to_edit: {
+                id: null,
+                body: "",
+                attributed_to: "",
+                medium: ""
+            }
         }
     }
 
@@ -29,6 +37,8 @@ class QuoteContainer extends Component {
       }
     }
 
+
+
     handleDelete = async (id, e) => {
         e.preventDefault();
         console.log('delete button clicked')
@@ -43,9 +53,22 @@ class QuoteContainer extends Component {
             })
             const parsedResponse = await response.json();
             console.log(parsedResponse)
+            this.setState({
+                quotes: this.state.quotes.filter((quote, i) => quote.id !== id)
+            })
         }catch(err){
             console.log(err)
         }
+    }
+
+    showEdit = (quote, e) => {
+        e.preventDefault()
+        this.setState({
+            show_edit: true,
+            quote_to_edit: quote
+            
+        })
+
     }
 
     render(){
@@ -53,12 +76,22 @@ class QuoteContainer extends Component {
 
         return <div>
             <h5>All of the user's quotes go here.</h5>
+            {this.state.show_edit ?
+            <EditContainer quote_to_edit={this.state.quote_to_edit}/>
+            :
+            null
+            }
             {this.state.quotes.map((quote, index) => (
             <div key={quote.id}>
                 <p>{quote.body}</p>
                 <button onClick={this.handleDelete.bind(null, quote.id)}>DELETE</button>
+                <button onClick={this.showEdit.bind(null, quote)}>EDIT</button>
+                
+                
+                
             </div>
-    ))}
+            ))}
+            
         </div>
     }
 }
