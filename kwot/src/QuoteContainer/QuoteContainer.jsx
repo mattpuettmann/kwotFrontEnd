@@ -31,10 +31,11 @@ class QuoteContainer extends Component {
 
     render(){
         console.log(this.state, 'this is state')
+
         return <div>
             <h5>All of the user's quotes go here.</h5>
             {this.state.quotes.map((quote, index) => (
-            <div>
+            <div key={quote.id}>
                 <p>{quote.body}</p>
                 <button>DELETE</button>
             </div>
