@@ -29,6 +29,25 @@ class QuoteContainer extends Component {
       }
     }
 
+    handleDelete = async (id, e) => {
+        e.preventDefault();
+        console.log('delete button clicked')
+        console.log(id, 'this is the id we want to delete')
+        try{
+            const response = await fetch('http://localhost:8000/api/v1/quotes/' + id, {
+                method: "DELETE",
+                credentials: "include",
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+            const parsedResponse = await response.json();
+            console.log(parsedResponse)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     render(){
         console.log(this.state, 'this is state')
 
@@ -37,7 +56,7 @@ class QuoteContainer extends Component {
             {this.state.quotes.map((quote, index) => (
             <div key={quote.id}>
                 <p>{quote.body}</p>
-                <button>DELETE</button>
+                <button onClick={this.handleDelete.bind(null, quote.id)}>DELETE</button>
             </div>
     ))}
         </div>
